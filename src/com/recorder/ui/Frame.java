@@ -1,31 +1,24 @@
 package com.recorder.ui;
 
-import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Rectangle;
-import java.awt.Robot;
-import java.awt.image.BufferedImage;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
-import com.recorder.Core;
+import com.recorder.graphics.Recorder;
 import com.recorder.graphics.Screen;
 
 public class Frame extends JFrame {
 
     public Screen screen;
+    public Recorder recorder;
     
     /***
      * Construct the Frame class
@@ -87,6 +80,8 @@ public class Frame extends JFrame {
         // initialize screen
         screen = new Screen(viewPortPanel, viewPort, 700, 475, 60);
         screen.displayViewport();
+        //initialize recorder
+        recorder = new Recorder(screen);
 
         // add components to panels
         controlsPanel.add(record);
@@ -101,8 +96,8 @@ public class Frame extends JFrame {
 
         // listeners
         record.addActionListener(e -> {
-            screen.recordClick();
-            record.setText(screen.isRecording() ? "End Recording" : "Begin Recording");
+            recorder.recordClick();
+            record.setText(recorder.isRecording() ? "End Recording" : "Begin Recording");
         });
         
         // finalize

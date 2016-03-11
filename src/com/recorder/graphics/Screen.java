@@ -1,40 +1,30 @@
 package com.recorder.graphics;
 
 import java.awt.AWTException;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.imageio.stream.FileImageOutputStream;
-import javax.imageio.stream.ImageOutputStream;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Screen {
 
-    private boolean recording;
     
-    private JPanel panel;
-    private JLabel viewPort;
-    private int width;
-    private int height;
-    private int frameRate;
-    private Robot robot;
-    private Rectangle captureRect;
+    public JPanel panel;
+    public JLabel viewPort;
+    public int width;
+    public int height;
+    public int frameRate;
+    public Robot robot;
+    public Rectangle captureRect;
     
-    private GifWriter writer;
-    private ImageOutputStream output;
-    private Timer timer;
-    private TimerTask viewTask;
-    private TimerTask recordTask;
+    public Timer timer;
+    public TimerTask viewTask;
     
     public Screen(JPanel panel, JLabel viewPort, int width, int height, int frameRate) {
         this.panel = panel;
@@ -71,73 +61,6 @@ public class Screen {
         timer.schedule(viewTask, 1, 1000 / frameRate);
     }
     
-    public void recordClick() {
-        if(isRecording())
-            endRecording();
-        else
-            beginRecording();
-    }
     
-    /**
-     * Begins the recording process.
-     */
-    public void beginRecording() {
-        try {
-            //set recording to true and update gui
-            viewPort.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
-            setRecording(true);
-            
-            // grab the output image type from the first image in the sequence
-            BufferedImage firstImage = robot.createScreenCapture(captureRect);
-
-            // create a new BufferedOutputStream with the last argument
-            output = new FileImageOutputStream(new File("C:\\gif.gif"));
-
-            // create a gif writer
-            writer = new GifWriter(output, firstImage.getType(), 1000 / frameRate, false);
-
-            // write out the first image to our sequence...
-            writer.writeToSequence(firstImage);
-            
-            recordTask = new TimerTask() {
-                public void run() {
-                    try {
-                        BufferedImage nextImage = robot.createScreenCapture(captureRect);
-                        if(isRecording() && nextImage != null)
-                            writer.writeToSequence(nextImage);
-                        else {
-                            recordTask.cancel();
-                            timer.purge();
-                            writer.close();
-                            output.close();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-            timer.schedule(recordTask, 0, 1000 / frameRate);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    /**
-     * Ends a recording session
-     */
-    public void endRecording() {
-        setRecording(false);
-
-        // update gui
-        viewPort.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-    }
-    
-    public boolean isRecording() {
-        return recording;
-    }
-    
-    public void setRecording(boolean value) {
-        recording = value;
-    }
     
 }
