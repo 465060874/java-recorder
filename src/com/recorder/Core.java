@@ -5,9 +5,11 @@ import com.recorder.ui.Frame;
 
 public class Core {
 
+	public static Frame frame;
+	
 	//initialize recorder
 	public static void main(String[] args) {
-		Frame frame = new Frame("JavaRecorder");
+		frame = new Frame("JavaRecorder");
 	}
 	
 }
