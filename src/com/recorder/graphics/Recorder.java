@@ -42,7 +42,7 @@ public class Recorder {
             FileImageOutputStream output = new FileImageOutputStream(new File("C:\\gif.gif"));
 
             // create a gif writer
-            GifWriter writer = new GifWriter(output, firstImage.getType(), 1000 / screen.frameRate, false);
+            GifWriter writer = new GifWriter(output, firstImage.getType(), 1000 / screen.frameRate, true);
 
             // write out the first image to our sequence...
             writer.writeToSequence(firstImage);

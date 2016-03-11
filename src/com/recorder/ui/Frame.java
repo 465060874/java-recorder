@@ -69,7 +69,7 @@ public class Frame extends JFrame {
         viewPort.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
         // initialize screen
-        screen = new Screen(viewPortPanel, viewPort, 0, 0, 700, 475, 60);
+        screen = new Screen(viewPortPanel, viewPort, 0, 0, 700, 475, 25);
         screen.displayViewport();
         //initialize recorder
         recorder = new Recorder(screen);
