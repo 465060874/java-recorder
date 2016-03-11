@@ -2,18 +2,17 @@ package com.recorder.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 import com.recorder.graphics.Recorder;
 import com.recorder.graphics.Screen;
+import com.recorder.graphics.selection.Selector;
 
 public class Frame extends JFrame {
 
@@ -50,9 +49,9 @@ public class Frame extends JFrame {
         buildPanels();
 
         pack();
-        setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
     }
 
     private void buildPanels() {
@@ -64,31 +63,20 @@ public class Frame extends JFrame {
 
         // buttons
         JButton record = new JButton("Begin Recording");
+        JButton selectRegion = new JButton("Select Region");
         // labels
         JLabel viewPort = new JLabel();
         viewPort.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        JLabel width = new JLabel("Width");
-        JLabel height = new JLabel("Height");
-        // fields
-        JTextField widthField = new JTextField();
-        widthField.setPreferredSize(new Dimension(75, 25));
-        widthField.setText("700");
-        JTextField heightField = new JTextField();
-        heightField.setPreferredSize(new Dimension(75, 25));
-        heightField.setText("475");
 
         // initialize screen
-        screen = new Screen(viewPortPanel, viewPort, 700, 475, 60);
+        screen = new Screen(viewPortPanel, viewPort, 0, 0, 700, 475, 60);
         screen.displayViewport();
         //initialize recorder
         recorder = new Recorder(screen);
 
         // add components to panels
         controlsPanel.add(record);
-        controlsPanel.add(width);
-        controlsPanel.add(widthField);
-        controlsPanel.add(height);
-        controlsPanel.add(heightField);
+        controlsPanel.add(selectRegion);
 
         // add component panels to backpanel
         backPanel.add(viewPortPanel, BorderLayout.NORTH);
@@ -99,6 +87,7 @@ public class Frame extends JFrame {
             recorder.recordClick();
             record.setText(recorder.isRecording() ? "End Recording" : "Begin Recording");
         });
+        selectRegion.addActionListener(e -> new Selector());
         
         // finalize
         add(backPanel);

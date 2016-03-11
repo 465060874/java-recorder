@@ -47,6 +47,8 @@ public class Recorder {
             // write out the first image to our sequence...
             writer.writeToSequence(firstImage);
             
+            //screen.stopViewTask();
+            
             TimerTask recordTask = new TimerTask() {
                 public void run() {
                     try {
@@ -78,6 +80,8 @@ public class Recorder {
 
         // update gui
         screen.viewPort.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        
+        //screen.startViewTask();
     }
     
     public boolean isRecording() {

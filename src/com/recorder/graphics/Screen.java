@@ -12,34 +12,84 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.recorder.Core;
+
 public class Screen {
 
-    
     public JPanel panel;
     public JLabel viewPort;
+    public int x;
+    public int y;
     public int width;
     public int height;
     public int frameRate;
     public Robot robot;
     public Rectangle captureRect;
-    
+
     public Timer timer;
     public TimerTask viewTask;
-    
-    public Screen(JPanel panel, JLabel viewPort, int width, int height, int frameRate) {
+
+    /**
+     * Construct screen
+     * 
+     * @param panel
+     *            jpanel to draw on
+     * @param viewPort
+     *            jlabel to set the image onto
+     * @param x
+     *            screen x position
+     * @param y
+     *            screen y position
+     * @param width
+     *            screen width
+     * @param height
+     *            screen height
+     * @param frameRate
+     *            display frame rate
+     */
+    public Screen(JPanel panel, JLabel viewPort, int x, int y, int width, int height,
+            int frameRate) {
         this.panel = panel;
         this.viewPort = viewPort;
+        this.x = x;
+        this.y = y;
         this.width = width;
         this.height = height;
         this.frameRate = frameRate;
-        captureRect = new Rectangle(0, 0, width, height);
+        captureRect = new Rectangle(x, y, width, height);
         try {
             robot = new Robot();
         } catch (AWTException e) {
             e.printStackTrace();
         }
     }
-    
+
+    /**
+     * Update the screen region
+     * 
+     * @param x
+     *            screen x position
+     * @param y
+     *            screen y position
+     * @param width
+     *            screen width
+     * @param height
+     *            screen height
+     */
+    public void updateScreenRegion(int x, int y, int width, int height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        
+        captureRect = new Rectangle(x, y, width, height);
+        viewPort.setPreferredSize(new Dimension(width, height));
+
+        viewPort.revalidate();
+        viewPort.repaint();
+        Core.frame.pack();
+    }
+
     /**
      * Method to display the viewport as a label icon on the panel.
      */
@@ -50,8 +100,11 @@ public class Screen {
         viewPort.setPreferredSize(size);
         viewPort.setIcon(new ImageIcon(image));
         panel.add(viewPort);
-        panel.repaint();
 
+        startViewTask();
+    }
+
+    public void startViewTask() {
         timer = new Timer();
         viewTask = new TimerTask() {
             public void run() {
@@ -60,7 +113,10 @@ public class Screen {
         };
         timer.schedule(viewTask, 1, 1000 / frameRate);
     }
-    
-    
-    
+
+    public void stopViewTask() {
+        viewTask.cancel();
+        timer.purge();
+    }
+
 }
