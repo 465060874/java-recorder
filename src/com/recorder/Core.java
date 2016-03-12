@@ -1,6 +1,6 @@
 package com.recorder;
 
-import com.recorder.ui.Frame;
+import com.recorder.gui.Frame;
 
 public class Core {
 

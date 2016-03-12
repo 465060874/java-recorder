@@ -1,4 +1,4 @@
-package com.recorder.ui;
+package com.recorder.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,7 +16,7 @@ import javax.swing.UIManager;
 import com.recorder.graphics.Recorder;
 import com.recorder.graphics.Screen;
 import com.recorder.graphics.selection.Selector;
-import com.recorder.ui.settings.SettingsFrame;
+import com.recorder.gui.settings.SettingsFrame;
 
 public class Frame extends JFrame {
 
