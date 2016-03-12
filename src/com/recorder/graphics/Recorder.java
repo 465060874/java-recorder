@@ -9,6 +9,8 @@ import java.util.TimerTask;
 import javax.imageio.stream.FileImageOutputStream;
 import javax.swing.BorderFactory;
 
+import com.recorder.Settings;
+
 public class Recorder {
 
     private Screen screen;
@@ -39,15 +41,16 @@ public class Recorder {
             BufferedImage firstImage = screen.robot.createScreenCapture(screen.captureRect);
 
             // create a new BufferedOutputStream with the last argument
-            FileImageOutputStream output = new FileImageOutputStream(new File("C:\\gif.gif"));
+            FileImageOutputStream output = new FileImageOutputStream(new File(Settings.getDataDir() + "gif.gif"));
 
             // create a gif writer
-            GifWriter writer = new GifWriter(output, firstImage.getType(), 1000 / screen.frameRate, true);
+            GifWriter writer = new GifWriter(output, firstImage.getType(), 1000 / screen.frameRate, Settings.loop);
 
             // write out the first image to our sequence...
             writer.writeToSequence(firstImage);
-            
-            //screen.stopViewTask();
+
+            if(Settings.stopWhenRec)
+                screen.stopViewTask();
             
             TimerTask recordTask = new TimerTask() {
                 public void run() {
@@ -81,7 +84,8 @@ public class Recorder {
         // update gui
         screen.viewPort.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         
-        //screen.startViewTask();
+        if(Settings.stopWhenRec)
+            screen.startViewTask();
     }
     
     public boolean isRecording() {

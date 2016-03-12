@@ -9,6 +9,7 @@ public class Core {
     // initialize recorder
     public static void main(String[] args) {
         frame = new Frame("JavaRecorder");
+        Settings.initialize();
     }
 
 }

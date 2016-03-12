@@ -1,6 +1,7 @@
 package com.recorder.graphics;
 
 import java.awt.AWTException;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Robot;
@@ -99,7 +100,7 @@ public class Screen {
 
         viewPort.setPreferredSize(size);
         viewPort.setIcon(new ImageIcon(image));
-        panel.add(viewPort);
+        panel.add(viewPort, BorderLayout.SOUTH);
 
         startViewTask();
     }
