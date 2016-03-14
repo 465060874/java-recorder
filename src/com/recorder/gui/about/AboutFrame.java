@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import com.recorder.Settings;
+import com.recorder.gui.settings.Settings;
 
 public class AboutFrame extends JFrame {
 

@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.recorder.Core;
-import com.recorder.Settings;
 
 public class SettingsFrame extends JFrame {
 

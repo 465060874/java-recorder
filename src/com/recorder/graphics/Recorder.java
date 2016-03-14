@@ -9,7 +9,7 @@ import java.util.TimerTask;
 import javax.imageio.stream.FileImageOutputStream;
 import javax.swing.BorderFactory;
 
-import com.recorder.Settings;
+import com.recorder.gui.settings.Settings;
 
 public class Recorder {
 

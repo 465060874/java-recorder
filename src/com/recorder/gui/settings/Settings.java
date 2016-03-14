@@ -1,4 +1,4 @@
-package com.recorder;
+package com.recorder.gui.settings;
 
 import java.io.File;
 import java.io.FileInputStream;
