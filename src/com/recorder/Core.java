@@ -8,7 +8,7 @@ public class Core {
 
     // initialize recorder
     public static void main(String[] args) {
-        frame = new Frame("JavaRecorder");
+        frame = new Frame("Java Gif Recorder");
         Settings.initialize();
     }
 

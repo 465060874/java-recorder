@@ -19,13 +19,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import com.recorder.graphics.Recorder;
 import com.recorder.graphics.Screen;
 import com.recorder.graphics.selection.Selector;
+import com.recorder.gui.about.AboutFrame;
 import com.recorder.gui.settings.SettingsFrame;
 
 public class Frame extends JFrame {
 
     public Screen screen;
     public Recorder recorder;
-    public String saveLocation;
     
     /***
      * Construct the Frame class
@@ -103,7 +103,8 @@ public class Frame extends JFrame {
         backPanel.add(controlsPanel, BorderLayout.SOUTH);
 
         // listeners
-        settings.addActionListener(e -> new SettingsFrame());
+        settings.addActionListener(e -> new SettingsFrame("Settings"));
+        about.addActionListener(e -> new AboutFrame("About"));
         exit.addActionListener(e -> System.exit(0));
         record.addActionListener(e -> {
             if(record.getText().contains("Begin"))
@@ -127,14 +128,14 @@ public class Frame extends JFrame {
         chooser.setFileFilter(gifFilter);
         int dialog = chooser.showSaveDialog(this);
         if (dialog == JFileChooser.APPROVE_OPTION) {
-            //get the file name that was chosen
-            save.setText("Saving as: "+chooser.getSelectedFile().getName());
-            saveLocation = chooser.getCurrentDirectory().toString()+ File.separator 
-                    +chooser.getSelectedFile().getName();
-            //check if file extension is in the name
-            if(!saveLocation.toLowerCase().contains(".gif"))
+            // get the file name that was chosen
+            save.setText("Saving as: " + chooser.getSelectedFile().getName());
+            String saveLocation = chooser.getCurrentDirectory().toString() + File.separator
+                    + chooser.getSelectedFile().getName();
+            // check if file extension is in the name
+            if (!saveLocation.toLowerCase().contains(".gif"))
                 saveLocation += ".gif";
-            //initialize recorder
+            // initialize recorder
             recorder = new Recorder(screen, saveLocation);
             recorder.recordClick();
             record.setText("End Recording");

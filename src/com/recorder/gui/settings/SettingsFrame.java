@@ -14,12 +14,12 @@ import com.recorder.Settings;
 
 public class SettingsFrame extends JFrame {
 
-    public SettingsFrame() {
-        initialize();
+    public SettingsFrame(String name) {
+        initialize(name);
     }
 
-    private void initialize() {
-        setTitle("Settings");
+    private void initialize(String name) {
+        setTitle(name);
         setSize(300, 200);
         setResizable(false);
         setLocationRelativeTo(null);
@@ -37,7 +37,7 @@ public class SettingsFrame extends JFrame {
 
         // components
         JLabel label = new JLabel("Java Gif Recorder settings.");
-        label.setFont(new Font("Arial", Font.PLAIN, 14));
+        label.setFont(new Font("Arial", Font.BOLD, 14));
 
         JCheckBox loop = new JCheckBox("Create continuously looping gif.", Settings.loop);
         JCheckBox stopWhenRec = new JCheckBox("Disable viewport when recording.", Settings.stopWhenRec);
