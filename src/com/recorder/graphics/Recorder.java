@@ -14,11 +14,13 @@ import com.recorder.Settings;
 public class Recorder {
 
     private Screen screen;
+    private String saveLocation;
     
     public boolean recording;
     
-    public Recorder(Screen screen) {
+    public Recorder(Screen screen, String saveLocation) {
         this.screen = screen;
+        this.saveLocation = saveLocation;
     }
     
     public void recordClick() {
@@ -41,7 +43,7 @@ public class Recorder {
             BufferedImage firstImage = screen.robot.createScreenCapture(screen.captureRect);
 
             // create a new BufferedOutputStream with the last argument
-            FileImageOutputStream output = new FileImageOutputStream(new File(Settings.getDataDir() + "gif.gif"));
+            FileImageOutputStream output = new FileImageOutputStream(new File(saveLocation));
 
             // create a gif writer
             GifWriter writer = new GifWriter(output, firstImage.getType(), 1000 / screen.frameRate, Settings.loop);
